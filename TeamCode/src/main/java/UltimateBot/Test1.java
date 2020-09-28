@@ -8,7 +8,7 @@ public class Test1 extends OpMode {
 
     @Override
     public void init() {
-        String name = "Claire";
+        String name = "Simon";
         telemetry.addData("Hello", name );
     }
     @Override
