@@ -9,7 +9,7 @@ public class Test1 extends OpMode {
     @Override
     public void init() {
         String name = "Claire";
-        telemetry.addData("Hello", name );
+        telemetry.addData("Hey", name );
     }
     @Override
     public void loop() {
