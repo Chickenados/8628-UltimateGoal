@@ -35,12 +35,13 @@ public class ClairesUltimateBotInfo {
 
     }
 
+
     public void setLeftSideSpeed(double speed){
         frontLeft.setPower(speed);
         frontRight.setPower(-speed);
     }
 
-    public void setRightSideSpeed(double speed){
+    public void setRightSideSpeed(double speed) {
         backLeft.setPower(speed);
         backRight.setPower(-speed);
     }
