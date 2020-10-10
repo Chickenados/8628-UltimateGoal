@@ -1,4 +1,4 @@
-package UltimateBot;
+package UltimateBot.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
