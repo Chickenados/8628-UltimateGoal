@@ -36,9 +36,9 @@ public class ClairesUltimateBotInfo {
     }
 
     public void setDrivetrainSpeed(double speed){
-        backLeft.setPower(-speed);
-        backRight.setPower(speed);
-        frontLeft.setPower(-speed);
-        frontRight.setPower(speed);
+        backLeft.setPower(speed);
+        backRight.setPower(-speed);
+        frontLeft.setPower(speed);
+        frontRight.setPower(-speed);
     }
 }
