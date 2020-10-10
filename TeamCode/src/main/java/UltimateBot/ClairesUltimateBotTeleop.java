@@ -18,7 +18,7 @@ public class ClairesUltimateBotTeleop extends OpMode {
     @Override
     public void loop() {
         telemetry.addData("Heading", robot.getHeading(AngleUnit.DEGREES));
-
+        robot.getMotorRevolutions();
         //move left motors with left stick y
         if (gamepad1.left_stick_y>0) {
             robot.setLeftSideSpeed(-0.5);
