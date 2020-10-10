@@ -57,7 +57,7 @@ public class ClairesUltimateBotInfo {
         frontRightTicksPerRev = frontRight.getMotorType().getTicksPerRev();
 
         //imu
-        hwMap.get(BNO055IMU.class, "imu");
+        imu = hwMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters params = new BNO055IMU.Parameters();
         imu.initialize(params);
 
