@@ -15,14 +15,27 @@ public class ClairesUltimateBotTeleop extends OpMode {
 
     @Override
     public void loop() {
+
+        //move left motors with left stick y
         if (gamepad1.left_stick_y>0) {
-            robot.setDrivetrainSpeed(0.5);
+            robot.setLeftSideSpeed(0.5);
         }
         else if(gamepad1.left_stick_y<0){
-            robot.setDrivetrainSpeed(-0.5);
+            robot.setLeftSideSpeed(-0.5);
         }
         else{
-            robot.setDrivetrainSpeed(0);
+            robot.setLeftSideSpeed(0);
+        }
+
+        //move left motors with right stick y
+        if (gamepad1.right_stick_y>0) {
+            robot.setRightSideSpeed(0.5);
+        }
+        else if(gamepad1.right_stick_y<0){
+            robot.setRightSideSpeed(-0.5);
+        }
+        else{
+            robot.setRightSideSpeed(0);
         }
     }
 }
