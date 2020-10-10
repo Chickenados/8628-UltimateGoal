@@ -27,7 +27,7 @@ public class ClairesUltimateBotInfo {
     private double frontRightTicksPerRev;
 
     //imu
-    private BNO055IMU imu;
+    //private BNO055IMU imu;
 
     public void init(HardwareMap hwMap){
 
@@ -57,13 +57,15 @@ public class ClairesUltimateBotInfo {
         frontRightTicksPerRev = frontRight.getMotorType().getTicksPerRev();
 
         //imu
-        imu = hwMap.get(BNO055IMU.class, "imu");
+       /* imu = hwMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters params = new BNO055IMU.Parameters();
+        //change to default set of parameters go here
         imu.initialize(params);
-
+*/
     }
 
 
+    //for tank drive
     public void setLeftSideSpeed(double speed){
         frontLeft.setPower(speed);
         frontRight.setPower(speed);
@@ -74,6 +76,7 @@ public class ClairesUltimateBotInfo {
         backRight.setPower(speed);
     }
 
+    //for auto? we only go forward and back now I guess...
     public void setSpeed(double speed){
         setRightSideSpeed(speed);
         setLeftSideSpeed(speed);
@@ -98,10 +101,12 @@ public class ClairesUltimateBotInfo {
         getFrontLeftMotorRevolutions();
         getFrontRightMotorRevolutions();
     }
-    public double getHeading(AngleUnit angleUnit){
+   /* public double getHeading(AngleUnit angleUnit){
         Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC,
                 AxesOrder.ZYX,
                 angleUnit);
         return angles.firstAngle;
-    }
+       }
+    */
+
 }
