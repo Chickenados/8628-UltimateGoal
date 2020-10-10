@@ -9,12 +9,10 @@ import java.lang.annotation.Annotation;
 @Autonomous (name = "test2")
 
 public class test2 extends LinearOpMode {
+    
 
-    @Override public void main() throws InterruptedException {
-
-
+    @Override
+    public void runOpMode() throws InterruptedException {
 
     }
-
-
 }
