@@ -14,7 +14,15 @@ public class ClairesUltimateBotTeleop extends OpMode {
     }
 
     @Override
-    public void loop(){
-        robot.setDrivetrainSpeed(.5);
+    public void loop() {
+        if (gamepad1.left_stick_y>0) {
+            robot.setDrivetrainSpeed(0.5);
+        }
+        else if(gamepad1.left_stick_y<0){
+            robot.setDrivetrainSpeed(-0.5);
+        }
+        else{
+            robot.setDrivetrainSpeed(0);
+        }
     }
 }
