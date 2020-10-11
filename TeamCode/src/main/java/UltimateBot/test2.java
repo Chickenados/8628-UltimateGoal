@@ -50,12 +50,15 @@ public class test2 extends LinearOpMode {
                 return;
             }
         }
-
+        String ex = "!";
+        telemetry.addData("Forward", ex);
         leftFront.setPower(1);
         rightFront.setPower(1);
         leftBack.setPower(1);
         rightBack.setPower(1);
         sleep(500);
+
+        telemetry.addData("Stop", ex);
 
         leftFront.setPower(0);
         rightFront.setPower(0);
@@ -63,12 +66,16 @@ public class test2 extends LinearOpMode {
         rightBack.setPower(0);
         sleep(500);
 
+        telemetry.addData("Right", ex);
 
         leftFront.setPower(1);
         rightFront.setPower(-1);
         leftBack.setPower(1);
         rightBack.setPower(-1);
         sleep(500);
+
+        telemetry.addData("Stop Finally", ex);
+
         leftFront.setPower(0);
         rightFront.setPower(0);
         leftBack.setPower(0);
