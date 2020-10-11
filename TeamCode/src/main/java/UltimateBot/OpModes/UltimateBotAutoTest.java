@@ -18,6 +18,7 @@ public class UltimateBotAutoTest extends OpMode{
     State state = State.START;
     double lastTime;
 
+
     @Override
     public void init(){
         robot.init(hardwareMap);
@@ -44,12 +45,13 @@ public class UltimateBotAutoTest extends OpMode{
                 break;
             case MOVE:
                 robot.setSpeed(1.0);
-                if (getRuntime() >= lastTime++) {
+                if (getRuntime() >= lastTime+5.0) {
                     state = State.STOP;
                     lastTime = getRuntime();
                 }
                 break;
             case STOP:
+                telemetry.addData("Speed", getRuntime());
                 robot.setSpeed(0.0);
                 state = State.DONE;
                 break;
