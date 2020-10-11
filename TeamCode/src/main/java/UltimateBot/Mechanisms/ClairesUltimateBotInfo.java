@@ -27,7 +27,7 @@ public class ClairesUltimateBotInfo {
     private double frontRightTicksPerRev;
 
     //imu
-    //private BNO055IMU imu;
+    private BNO055IMU imu;
 
     public void init(HardwareMap hwMap){
 
@@ -57,11 +57,11 @@ public class ClairesUltimateBotInfo {
         frontRightTicksPerRev = frontRight.getMotorType().getTicksPerRev();
 
         //imu
-       /* imu = hwMap.get(BNO055IMU.class, "imu");
+        imu = hwMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters params = new BNO055IMU.Parameters();
         //change to default set of parameters go here
         imu.initialize(params);
-*/
+
     }
 
 
@@ -101,12 +101,12 @@ public class ClairesUltimateBotInfo {
         getFrontLeftMotorRevolutions();
         getFrontRightMotorRevolutions();
     }
-   /* public double getHeading(AngleUnit angleUnit){
-        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC,
+    public double getHeading(AngleUnit angleUnit){
+        Orientation angles = imu.getAngularOrientation(AxesReference.EXTRINSIC,
                 AxesOrder.ZYX,
                 angleUnit);
         return angles.firstAngle;
        }
-    */
+
 
 }
