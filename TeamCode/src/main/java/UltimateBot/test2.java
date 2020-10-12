@@ -3,25 +3,32 @@ package UltimateBot;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.ColorRangeSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import java.lang.annotation.Annotation;
 
 @Autonomous (name = "test2")
 
 public class test2 extends LinearOpMode {
+    enum State {
+        START,
+        MOVE,
+        STOP,
+        DONE
+    }
     DcMotor leftFront;
     DcMotor rightFront;
     DcMotor leftBack;
     DcMotor rightBack;
     ColorSensor colorSensor;
+    String ex = "!";
+    double lastTime;
 
     @Override
     public void runOpMode() throws InterruptedException {
-
-
-          colorSensor = hardwareMap.colorSensor.get("colorSensor");
+        lastTime = getRuntime();
+        colorSensor = hardwareMap.colorSensor.get("colorSensor");
 
 
         leftFront = hardwareMap.dcMotor.get("frontLeft");
@@ -34,9 +41,28 @@ public class test2 extends LinearOpMode {
         waitForStart();
         int x = 0;
         int colorSensed = colorSensor.argb();
-        while (x<1) {
-            if (colorSensed >= 330 && colorSensed <= 360) {
+        telemetry.addData("Forward", ex);
+        leftFront.setPower(1);
+        rightFront.setPower(1);
+        leftBack.setPower(1);
+        rightBack.setPower(1);
+        if (getRuntime() >= 5.0 + lastTime){
+
+        }
+        sleep(500);
+
+        telemetry.addData("Stop", ex);
+
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftBack.setPower(0);
+        rightBack.setPower(0);
+        sleep(500);
+        telemetry.addData("started", ex);
+        if (colorSensed >= 330 && colorSensed <= 360)
+        {
                 String color = "red";
+                telemetry.addData("the color is ", color);
                 leftFront.setPower(1);
                 rightFront.setPower(1);
                 rightBack.setPower(1);
@@ -46,11 +72,10 @@ public class test2 extends LinearOpMode {
                 rightFront.setPower(0);
                 rightBack.setPower(0);
                 leftBack.setPower(0);
-                x = 3;
-                return;
-            }
+                x++;
         }
-        String ex = "!";
+
+
         telemetry.addData("Forward", ex);
         leftFront.setPower(1);
         rightFront.setPower(1);
