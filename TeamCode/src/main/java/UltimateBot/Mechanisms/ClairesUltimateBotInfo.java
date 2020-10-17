@@ -2,6 +2,7 @@ package UltimateBot.Mechanisms;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -29,7 +30,7 @@ public class ClairesUltimateBotInfo {
     //imu
     private BNO055IMU imu;
 
-    public void init(HardwareMap hwMap){
+    public void init(HardwareMap hwMap) {
 
         //drivetrain systems
 
@@ -66,7 +67,7 @@ public class ClairesUltimateBotInfo {
 
 
     //for tank drive
-    public void setLeftSideSpeed(double speed){
+    public void setLeftSideSpeed(double speed) {
         frontLeft.setPower(speed);
         frontRight.setPower(speed);
     }
@@ -77,36 +78,39 @@ public class ClairesUltimateBotInfo {
     }
 
     //for auto? we only go forward and back now I guess...
-    public void setSpeed(double speed){
+    public void setSpeed(double speed) {
         setRightSideSpeed(speed);
         setLeftSideSpeed(speed);
     }
 
-    public double getBackLeftMotorRevolutions(){
+    public double getBackLeftMotorRevolutions() {
         return backLeft.getCurrentPosition() / backLeftTicksPerRev;
     }
-    public double getBackRightMotorRevolutions(){
+
+    public double getBackRightMotorRevolutions() {
         return backRight.getCurrentPosition() / backRightTicksPerRev;
     }
-    public double getFrontLeftMotorRevolutions(){
+
+    public double getFrontLeftMotorRevolutions() {
         return frontLeft.getCurrentPosition() / frontLeftTicksPerRev;
     }
-    public double getFrontRightMotorRevolutions(){
+
+    public double getFrontRightMotorRevolutions() {
         return frontRight.getCurrentPosition() / frontRightTicksPerRev;
     }
 
-    public void getMotorRevolutions(){
+    public void getMotorRevolutions() {
         getBackLeftMotorRevolutions();
         getBackRightMotorRevolutions();
         getFrontLeftMotorRevolutions();
         getFrontRightMotorRevolutions();
     }
-    public double getHeading(AngleUnit angleUnit){
+
+    public double getHeading(AngleUnit angleUnit) {
         Orientation angles = imu.getAngularOrientation(AxesReference.EXTRINSIC,
                 AxesOrder.ZYX,
                 angleUnit);
         return angles.firstAngle;
-       }
-
+    }
 
 }
