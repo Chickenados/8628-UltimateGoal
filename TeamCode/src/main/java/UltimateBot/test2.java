@@ -1,5 +1,7 @@
 package UltimateBot;
 
+import android.graphics.Color;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -18,8 +20,16 @@ public class test2 extends LinearOpMode {
     double lastTime;
     @Override
     public void runOpMode() throws InterruptedException {
-        colorSensor = hardwareMap.colorSensor.get("colorSensor");
+        colorSensor = hardwareMap.get(ColorSensor.class, "colorSensor");
+        // hsvValues is an array that will hold the hue, saturation, and value information.
+        float hsvValues[] = {0F, 0F, 0F};
 
+        // values is a reference to the hsvValues array.
+        final float values[] = hsvValues;
+
+        // sometimes it helps to multiply the raw RGB values with a scale factor
+        // to amplify/attentuate the measured values.
+        final double SCALE_FACTOR = 255;
 
         leftFront = hardwareMap.dcMotor.get("frontLeft");
         rightFront = hardwareMap.dcMotor.get("frontRight");
@@ -29,7 +39,11 @@ public class test2 extends LinearOpMode {
         leftBack.setDirection(DcMotor.Direction.REVERSE);
         colorSensor.enableLed(true);
         waitForStart();
-        int colorSensed = colorSensor.argb();
+        Color.RGBToHSV((int) (colorSensor.red() * SCALE_FACTOR),
+                (int) (colorSensor.green() * SCALE_FACTOR),
+                (int) (colorSensor.blue() * SCALE_FACTOR),
+                hsvValues);
+
         telemetry.addData("Forward", ex);
         leftFront.setPower(1);
         rightFront.setPower(1);
@@ -47,12 +61,12 @@ public class test2 extends LinearOpMode {
         sleep(500);
         telemetry.addData("started", ex);
 
-        while (colorSensed <= 330 || colorSensed >= 360)
-        {
-        }
+        telemetry.addData("Alpha", colorSensor.alpha());
+        telemetry.addData("Red  ", colorSensor.red());
+        telemetry.addData("Green", colorSensor.green());
+        telemetry.addData("Blue ", colorSensor.blue());
+        telemetry.addData("Hue", hsvValues[0]);
 
-        String color = "red";
-        telemetry.addData("the color is ", color);
         leftFront.setPower(1);
         rightFront.setPower(1);
         rightBack.setPower(1);
@@ -92,6 +106,8 @@ public class test2 extends LinearOpMode {
         rightFront.setPower(0);
         leftBack.setPower(0);
         rightBack.setPower(0);
+
     }
+
 }
 
