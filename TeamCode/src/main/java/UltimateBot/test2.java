@@ -16,7 +16,7 @@ public class test2 extends LinearOpMode {
     DcMotor leftBack;
     DcMotor rightBack;
     ColorSensor colorSensor;
-    String ex = "!";
+    Integer number = 1;
     double lastTime;
     @Override
     public void runOpMode() throws InterruptedException {
@@ -44,7 +44,7 @@ public class test2 extends LinearOpMode {
                 (int) (colorSensor.blue() * SCALE_FACTOR),
                 hsvValues);
 
-        telemetry.addData("Forward", ex);
+        telemetry.addData("Forward", number);
         leftFront.setPower(1);
         rightFront.setPower(1);
         leftBack.setPower(1);
@@ -59,7 +59,7 @@ public class test2 extends LinearOpMode {
         leftBack.setPower(0);
         rightBack.setPower(0);
         sleep(500);
-        telemetry.addData("started", ex);
+        telemetry.addData("started", number);
 
         telemetry.addData("Alpha", colorSensor.alpha());
         telemetry.addData("Red  ", colorSensor.red());
@@ -77,14 +77,14 @@ public class test2 extends LinearOpMode {
         rightBack.setPower(0);
         leftBack.setPower(0);
 
-        telemetry.addData("Forward", ex);
+        telemetry.addData("Forward", number);
         leftFront.setPower(1);
         rightFront.setPower(1);
         leftBack.setPower(1);
         rightBack.setPower(1);
         sleep(500);
 
-        telemetry.addData("Stop", ex);
+        telemetry.addData("Stop", number);
 
         leftFront.setPower(0);
         rightFront.setPower(0);
@@ -92,7 +92,7 @@ public class test2 extends LinearOpMode {
         rightBack.setPower(0);
         sleep(500);
 
-        telemetry.addData("Right", ex);
+        telemetry.addData("Right", number);
 
         leftFront.setPower(1);
         rightFront.setPower(-1);
@@ -100,7 +100,7 @@ public class test2 extends LinearOpMode {
         rightBack.setPower(-1);
         sleep(500);
 
-        telemetry.addData("Stop Finally", ex);
+        telemetry.addData("Stop Finally", number);
 
         leftFront.setPower(0);
         rightFront.setPower(0);
