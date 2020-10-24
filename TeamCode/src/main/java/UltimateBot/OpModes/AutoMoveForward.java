@@ -12,7 +12,8 @@ public class AutoMoveForward extends OpMode {
         START,
         MOVEFORWARD,
         PAUSE,
-        MOVEFORWARDAGAIN,
+        TURN,
+        MOVEAGAIN,
         END
     }
     ClairesUltimateBotInfo robot = new ClairesUltimateBotInfo();
@@ -45,7 +46,7 @@ public class AutoMoveForward extends OpMode {
                 break;
             case MOVEFORWARD:
                 robot.setSpeed(2.0);
-                if (getRuntime() >= lastTime+5.0) {
+                if (getRuntime() >= lastTime+3.0) {
                     state = State.PAUSE;
                     lastTime = getRuntime();
                 }
@@ -53,10 +54,23 @@ public class AutoMoveForward extends OpMode {
             case PAUSE:
                 telemetry.addData("Speed", getRuntime());
                 robot.setSpeed(0.0);
-                state = State.MOVEFORWARDAGAIN;
+                    state = State.TURN;
                 break;
-            case MOVEFORWARDAGAIN:
-                //robot.setSpeed();
+            case TURN:
+                robot.setLeftSideSpeed(1.0);
+                if (getRuntime()>=lastTime+3.0) {
+                    state = State.MOVEAGAIN;
+                }
+                break;
+            case MOVEAGAIN:
+                robot.setSpeed(1.0);
+                if (getRuntime()>=lastTime+3.0){
+                    state = State.END;
+                break;
+                }
+            case END:
+                robot.setSpeed(0);
+                break;
 
 
             default:

@@ -69,11 +69,11 @@ public class ClairesUltimateBotInfo {
     //for tank drive
     public void setLeftSideSpeed(double speed) {
         frontLeft.setPower(speed);
-        frontRight.setPower(speed);
+        backLeft.setPower(speed);
     }
 
     public void setRightSideSpeed(double speed) {
-        backLeft.setPower(speed);
+        frontRight.setPower(speed);
         backRight.setPower(speed);
     }
 
