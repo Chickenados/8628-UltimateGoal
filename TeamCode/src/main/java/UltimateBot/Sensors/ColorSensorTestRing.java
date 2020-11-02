@@ -10,41 +10,85 @@ import com.qualcomm.robotcore.hardware.DistanceSensor;
 @Autonomous (name = "ColorSensorTestRing")
 public class ColorSensorTestRing extends LinearOpMode {
 
-    ColorSensor colorSensorforward;
-    ColorSensor colorSensortop;
+    ColorSensor colorSensorport1;
+    ColorSensor colorSensorport2;
 
     @Override
     public void runOpMode() {
-
+        //so I don't have to add a second value to telemetry when not needed
+        String space = " ";
+        boolean fourRings;
+        //true if at least one ring detected
+        boolean anyring;
         // get a reference to the front-facing color sensor.
-        colorSensorforward = hardwareMap.get(ColorSensor.class, "colorSensor");
+        colorSensorport1 = hardwareMap.get(ColorSensor.class, "colorSensor");
 
         // get a reference to the color sensor facing down.
-        colorSensortop = hardwareMap.get(ColorSensor.class, "colorSensor1");
+        colorSensorport2 = hardwareMap.get(ColorSensor.class, "colorSensor1");
 
         // hsvValues is an array that will hold the hue, saturation, and value information of the forward facing color sensor.
-        float hsvValuesforward[] = {0F, 0F, 0F};
+        float hsvValuesport1[] = {0F, 0F, 0F};
         // hsvValues1 is an array that will hold the hue, saturation, and value information of the second color sensor.
-        float hsvValuestop[] = {0F, 0F, 0F};
+        float hsvValuesport2[] = {0F, 0F, 0F};
 
         waitForStart();
 
         // convert the forward facing RGB values to HSV values.
-        Color.RGBToHSV((colorSensorforward.red()),
-                (colorSensorforward.green()),
-                (colorSensorforward.blue()),
-                hsvValuesforward);
+        Color.RGBToHSV((colorSensorport1.red()),
+                (colorSensorport1.green()),
+                (colorSensorport1.blue()),
+                hsvValuesport1);
 
         // convert the top down RGB values to HSV values.
-        Color.RGBToHSV((colorSensortop.red()),
-                (colorSensortop.green()),
-                (colorSensortop.blue()),
-                hsvValuestop);
+        Color.RGBToHSV((colorSensorport2.red()),
+                (colorSensorport2.green()),
+                (colorSensorport2.blue()),
+                hsvValuesport2);
 
         // sends the hue back to the driver station to be displayed in a telemetry output (text)
-        telemetry.addData("Hue of front: ", hsvValuesforward[0]);
-        telemetry.addData("Hue of top-down: ", hsvValuestop[0]);
+        telemetry.addData("Hue of v3: ", hsvValuesport1[0]);
+        telemetry.addData("Hue of v2: ", hsvValuesport2[0]);
 
-        sleep(5000);
+        telemetry.update();
+
+        sleep(2000);
+        telemetry.clearAll();
+
+        //color sensor positioned at the bottom of the robot detects if there is 0 or any rings next to the robot.
+
+        if (hsvValuesport1[0] > 47 && hsvValuesport1[0] < 70) {
+            telemetry.addData("There are 1 or 4 rings there.", space);
+            anyring = true;
+        }
+
+        else {
+            telemetry.addData("I couldn't detect anyring. 0 rings there!", space);
+            anyring = false;
+        }
+
+        telemetry.update();
+
+        sleep(1000);
+
+        //color sensor around halfway up the robot detects if there are any rings there.
+        if (hsvValuesport2[0] > 6 && hsvValuesport2[0] < 22) {
+            telemetry.addData("There are 4 rings on this stack!", space);
+            fourRings = true;
+        }
+
+        else anyring = true; {
+            telemetry.addData("There is 1 ring on this stack!", space);
+        }
+
+        telemetry.update();
+
+        sleep(3000);
+
+        if (anyring = false) {
+            telemetry.addData("There are 0 rings on this stack!", space);
+        }
+
+        telemetry.update();
+        sleep(4000);
     }
 }
