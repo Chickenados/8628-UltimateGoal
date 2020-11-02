@@ -21,21 +21,22 @@ public class ClairesUltimateBotTeleop extends OpMode {
         robot.getMotorRevolutions();
         //move left motors with left stick y
         if (gamepad1.left_stick_y>0) {
-            robot.setLeftSideSpeed(-0.5);
+            robot.setLeftSideSpeed(-1);
         }
         else if(gamepad1.left_stick_y<0){
-            robot.setLeftSideSpeed(0.5);
+            robot.setLeftSideSpeed(1.0);
         }
         else{
             robot.setLeftSideSpeed(0);
         }
 
+
         //move left motors with right stick y
         if (gamepad1.right_stick_y>0) {
-            robot.setRightSideSpeed(-0.5);
+            robot.setRightSideSpeed(-1.0);
         }
         else if(gamepad1.right_stick_y<0){
-            robot.setRightSideSpeed(0.5);
+            robot.setRightSideSpeed(1.0);
         }
         else{
             robot.setRightSideSpeed(0);
