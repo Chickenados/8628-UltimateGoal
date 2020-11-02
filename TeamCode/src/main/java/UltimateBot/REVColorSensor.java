@@ -57,19 +57,19 @@ public class REVColorSensor extends LinearOpMode {
         // get a reference to the distance sensor that shares the same name.
         distanceSensor = hardwareMap.get(DistanceSensor.class, "colorSensor");
 
-        // get a reference to the color sensor.
+        // get a reference to the second color sensor.
         colorSensor1 = hardwareMap.get(ColorSensor.class, "colorSensor1");
 
-        // get a reference to the distance sensor that shares the same name.
+        // get a reference to the second distance sensor that shares the same name.
         distanceSensor1 = hardwareMap.get(DistanceSensor.class, "colorSensor1");
 
-        // hsvValues is an array that will hold the hue, saturation, and value information.
+        // hsvValues is an array that will hold the hue, saturation, and value information of the first color sensor
         float hsvValues[] = {0F, 0F, 0F};
-        // hsvValues is an array that will hold the hue, saturation, and value information.
+        // hsvValues1 is an array that will hold the hue, saturation, and value information of the second color sensor.
         float hsvValues1[] = {0F, 0F, 0F};
         // values is a reference to the hsvValues array.
         final float values[] = hsvValues;
-        // values is a reference to the hsvValues array.
+        // values is a reference to the hsvValues1 array.
         final float values1[] = hsvValues;
 
         // get a reference to the RelativeLayout so we can change the background
