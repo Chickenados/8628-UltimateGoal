@@ -7,12 +7,11 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 import UltimateBot.Mechanisms.ClairesUltimateBotInfo;
-import UltimateBot.Mechanisms.MecanumDriveTest;
+import UltimateBot.Mechanisms.MecanumDriveBase;
 
 @TeleOp
 public class ClairesUltimateBotTeleop extends OpMode {
     ClairesUltimateBotInfo robot = new ClairesUltimateBotInfo();
-    //MecanumDriveTest test = new MecanumDriveTest();
 
     @Override
     public void init(){
@@ -23,8 +22,8 @@ public class ClairesUltimateBotTeleop extends OpMode {
     public void loop() {
         telemetry.addData("Our Heading", robot.getHeading(AngleUnit.DEGREES));
         robot.getMotorRevolutions();
-        //test.mecanumDrive(gamepad1.right_stick_y, -gamepad1.right_stick_y,-gamepad1.left_stick_x);
 
+        robot.mecanumDriveBase.mecanumDrive(-gamepad1.right_stick_y, -gamepad1.right_stick_x, gamepad1.left_stick_x);
         //move left motors with left stick y
         if (gamepad1.left_stick_y>0) {
             robot.setLeftSideSpeed(-1);

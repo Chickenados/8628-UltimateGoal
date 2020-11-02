@@ -30,8 +30,12 @@ public class ClairesUltimateBotInfo {
     //imu
     private BNO055IMU imu;
 
+    //mecanum?
+    public MecanumDriveBase mecanumDriveBase;
+
     public void init(HardwareMap hwMap) {
 
+        mecanumDriveBase = new MecanumDriveBase(frontLeft, frontRight, backLeft, backRight);
         //drivetrain systems
 
         backLeft = hwMap.get(DcMotor.class, "backLeft");
@@ -39,10 +43,10 @@ public class ClairesUltimateBotInfo {
         frontLeft = hwMap.get(DcMotor.class, "frontLeft");
         frontRight = hwMap.get(DcMotor.class, "frontRight");
 
-        backLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        backRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        frontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         backLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -62,6 +66,7 @@ public class ClairesUltimateBotInfo {
         BNO055IMU.Parameters params = new BNO055IMU.Parameters();
         //change to default set of parameters go here
         imu.initialize(params);
+
 
     }
 
@@ -112,5 +117,6 @@ public class ClairesUltimateBotInfo {
                 angleUnit);
         return angles.firstAngle;
     }
+
 
 }

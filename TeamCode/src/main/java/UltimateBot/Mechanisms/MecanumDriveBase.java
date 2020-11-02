@@ -2,8 +2,8 @@ package UltimateBot.Mechanisms;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-public class MecanumDriveTest {
-    public MecanumDriveTest(DcMotor frontLeft, DcMotor frontRight, DcMotor backLeft, DcMotor backRight){
+public class MecanumDriveBase {
+    public MecanumDriveBase(DcMotor frontLeft, DcMotor frontRight, DcMotor backLeft, DcMotor backRight){
         this.frontLeft = frontLeft;
         this.frontRight = frontRight;
         this.backLeft = backLeft;
