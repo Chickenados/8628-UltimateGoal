@@ -21,7 +21,7 @@ public class ClairesUltimateBotTeleop extends OpMode {
     @Override
     public void loop() {
         telemetry.addData("Our Heading", robot.getHeading(AngleUnit.DEGREES));
-        robot.getMotorRevolutions();
+        //robot.getMotorRevolutions();
 
         robot.mecanumDriveBase.mecanumDrive(-gamepad1.right_stick_y, -gamepad1.right_stick_x, gamepad1.left_stick_x);
         //move left motors with left stick y

@@ -87,7 +87,7 @@ public class ClairesUltimateBotInfo {
         setRightSideSpeed(speed);
         setLeftSideSpeed(speed);
     }
-
+/*
     public double getBackLeftMotorRevolutions() {
         return backLeft.getCurrentPosition() / backLeftTicksPerRev;
     }
@@ -110,7 +110,7 @@ public class ClairesUltimateBotInfo {
         getFrontLeftMotorRevolutions();
         getFrontRightMotorRevolutions();
     }
-
+*/
     public double getHeading(AngleUnit angleUnit) {
         Orientation angles = imu.getAngularOrientation(AxesReference.EXTRINSIC,
                 AxesOrder.ZYX,

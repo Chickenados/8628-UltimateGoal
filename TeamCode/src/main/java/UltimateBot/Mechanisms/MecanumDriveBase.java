@@ -14,7 +14,7 @@ public class MecanumDriveBase {
         if(backLeft != null) numMotors++;
         if(backRight != null) numMotors++;
 
-        resetEncoders();
+      //  resetEncoders();
 
     }
     public enum MotorType{
@@ -84,7 +84,7 @@ public class MecanumDriveBase {
         return motorPowers;
 
     }
-    public void resetEncoders(){
+   /* public void resetEncoders(){
         if(frontLeft != null) frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         if(frontRight != null) frontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         if(backLeft != null) backLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -94,5 +94,5 @@ public class MecanumDriveBase {
         if(frontRight != null) frontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         if(backLeft != null) backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         if(backRight != null) backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-    }
+    }*/
 }
