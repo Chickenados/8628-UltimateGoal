@@ -53,14 +53,15 @@ public class ClairesUltimateBotInfo {
         frontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         frontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
-        frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+        //backLeft.setDirection(DcMotorSimple.Direction.REVERSE);
+        //frontLeft.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        backLeftTicksPerRev = backLeft.getMotorType().getTicksPerRev();
+      /*  backLeftTicksPerRev = backLeft.getMotorType().getTicksPerRev();
         backRightTicksPerRev = backRight.getMotorType().getTicksPerRev();
         frontLeftTicksPerRev = frontLeft.getMotorType().getTicksPerRev();
         frontRightTicksPerRev = frontRight.getMotorType().getTicksPerRev();
-
+*/
         //imu
         imu = hwMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters params = new BNO055IMU.Parameters();
@@ -70,7 +71,17 @@ public class ClairesUltimateBotInfo {
 
     }
 
+    //test mecanum
+    public void mecanumDrive(double forward, double sideways, double rotation){
 
+        // Set the power of each motor
+        frontLeft.setPower((forward + sideways + rotation) * 1.0);
+        frontRight.setPower((forward - sideways) - rotation * 1.0);
+        backLeft.setPower((forward - sideways) + rotation * 1.0);
+        backRight.setPower(forward + (sideways - rotation) * 1.0);
+
+
+    }
     //for tank drive
     public void setLeftSideSpeed(double speed) {
         frontLeft.setPower(speed);
@@ -87,7 +98,7 @@ public class ClairesUltimateBotInfo {
         setRightSideSpeed(speed);
         setLeftSideSpeed(speed);
     }
-/*
+
     public double getBackLeftMotorRevolutions() {
         return backLeft.getCurrentPosition() / backLeftTicksPerRev;
     }
@@ -110,7 +121,7 @@ public class ClairesUltimateBotInfo {
         getFrontLeftMotorRevolutions();
         getFrontRightMotorRevolutions();
     }
-*/
+
     public double getHeading(AngleUnit angleUnit) {
         Orientation angles = imu.getAngularOrientation(AxesReference.EXTRINSIC,
                 AxesOrder.ZYX,

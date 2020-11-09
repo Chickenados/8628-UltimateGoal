@@ -44,7 +44,7 @@ public class UltimateBotAutoTest extends OpMode{
                 }
                 break;
             case MOVE:
-                robot.setSpeed(1.0);
+               // robot.setSpeed(1.0);
                 if (getRuntime() >= lastTime+5.0) {
                     state = State.STOP;
                     lastTime = getRuntime();
@@ -52,7 +52,7 @@ public class UltimateBotAutoTest extends OpMode{
                 break;
             case STOP:
                 telemetry.addData("Speed", getRuntime());
-                robot.setSpeed(0.0);
+               // robot.setSpeed(0.0);
                 state = State.DONE;
                 break;
             default:

@@ -23,11 +23,17 @@ public class ClairesUltimateBotTeleop extends OpMode {
         telemetry.addData("Our Heading", robot.getHeading(AngleUnit.DEGREES));
         //robot.getMotorRevolutions();
 
-        robot.mecanumDriveBase.mecanumDrive(-gamepad1.right_stick_y, -gamepad1.right_stick_x, gamepad1.left_stick_x);
+        //tank drive
+        //robot.setLeftSideSpeed(gamepad1.left_stick_y);
+        //robot.setRightSideSpeed(gamepad1.right_stick_y);
+        //mecanum drive
+        robot.mecanumDrive(gamepad1.right_stick_y, -gamepad1.right_stick_x, -gamepad1.left_stick_x);
+        //overcomplicated tank drive
         //move left motors with left stick y
-        if (gamepad1.left_stick_y>0) {
+        /*if (gamepad1.left_stick_y>0) {
             robot.setLeftSideSpeed(-1);
         }
+
         else if(gamepad1.left_stick_y<0){
             robot.setLeftSideSpeed(1.0);
         }
@@ -46,7 +52,7 @@ public class ClairesUltimateBotTeleop extends OpMode {
         else{
             robot.setRightSideSpeed(0);
         }
-
+*/
 
         //super secret test
     }

@@ -1,12 +1,13 @@
 package UltimateBot.OpModes;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 
 import UltimateBot.Mechanisms.ClairesUltimateBotInfo;
 
 @Autonomous
-
+@Disabled
 public class AutoMoveForward extends OpMode {
     enum State{
         START,
@@ -45,7 +46,7 @@ public class AutoMoveForward extends OpMode {
                 }
                 break;
             case MOVEFORWARD:
-                robot.setSpeed(2.0);
+              //  robot.setSpeed(2.0);
                 if (getRuntime() >= lastTime+3.0) {
                     state = State.PAUSE;
                     lastTime = getRuntime();
@@ -53,23 +54,23 @@ public class AutoMoveForward extends OpMode {
                 break;
             case PAUSE:
                 telemetry.addData("Speed", getRuntime());
-                robot.setSpeed(0.0);
+              //  robot.setSpeed(0.0);
                     state = State.TURN;
                 break;
             case TURN:
-                robot.setLeftSideSpeed(1.0);
+               // robot.setLeftSideSpeed(1.0);
                 if (getRuntime()>=lastTime+3.0) {
                     state = State.MOVEAGAIN;
                 }
                 break;
             case MOVEAGAIN:
-                robot.setSpeed(1.0);
+              //  robot.setSpeed(1.0);
                 if (getRuntime()>=lastTime+3.0){
                     state = State.END;
                 break;
                 }
             case END:
-                robot.setSpeed(0);
+              //  robot.setSpeed(0);
                 break;
 
 

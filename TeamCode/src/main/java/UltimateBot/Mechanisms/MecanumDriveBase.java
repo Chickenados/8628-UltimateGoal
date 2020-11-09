@@ -3,6 +3,20 @@ package UltimateBot.Mechanisms;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 public class MecanumDriveBase {
+
+    private int numMotors = 0;
+
+    private DcMotor frontLeft;
+    private DcMotor frontRight;
+    private DcMotor backLeft;
+    private DcMotor backRight;
+
+    //Other info
+    private double speed = 1.0;
+    private double xScale = 1.0;
+    private double yScale = 1.0;
+
+
     public MecanumDriveBase(DcMotor frontLeft, DcMotor frontRight, DcMotor backLeft, DcMotor backRight){
         this.frontLeft = frontLeft;
         this.frontRight = frontRight;
@@ -18,10 +32,10 @@ public class MecanumDriveBase {
 
     }
     public enum MotorType{
-        FRONT_LEFT(0),
-        FRONT_RIGHT(1),
-        BACK_LEFT(2),
-        BACK_RIGHT(3);
+        frontLeft(0),
+        frontRight(1),
+        backLeft(2),
+        backRight(3);
 
         int value;
 
@@ -29,44 +43,35 @@ public class MecanumDriveBase {
             this.value = id;
         }
     }
-    private int numMotors = 0;
-
-    private DcMotor frontLeft;
-    private DcMotor frontRight;
-    private DcMotor backLeft;
-    private DcMotor backRight;
-
-    //Other info
-    private double speed = 1.0;
-    private double xScale = 1.0;
-    private double yScale = 1.0;
 
 
 
     public void mecanumDrive(double forward, double sideways, double rotation){
-        if(numMotors != 4){
+        /*if(numMotors != 4){
             throw new IllegalArgumentException("Mecanum drive requires 4 motors!");
-        }
+        }*/
 
-        double[] motorPowers = new double[4];
-        motorPowers[MotorType.FRONT_LEFT.value] = (forward + sideways + rotation) * speed;
-        motorPowers[MotorType.FRONT_RIGHT.value] = (forward - sideways) - rotation * speed;
-        motorPowers[MotorType.BACK_LEFT.value] = (forward - sideways) + rotation * speed;
-        motorPowers[MotorType.BACK_RIGHT.value] = forward + (sideways - rotation) * speed;
+      /*  double[] motorPowers = new double[4];
+        motorPowers[MotorType.frontLeft.value] = (forward + sideways + rotation) * speed;
+        motorPowers[MotorType.frontRight.value] = (forward - sideways) - rotation * speed;
+        motorPowers[MotorType.backLeft.value] = (forward - sideways) + rotation * speed;
+        motorPowers[MotorType.backRight.value] = forward + (sideways - rotation) * speed;
 
         // Normalize each motor speed so we don't exceed 1.
         motorPowers = normalizeMotorPowers(motorPowers);
-
+*/
         // Set the power of each motor
-        frontLeft.setPower(motorPowers[MotorType.FRONT_LEFT.value]);
-        frontRight.setPower(motorPowers[MotorType.FRONT_RIGHT.value]);
-        backLeft.setPower(motorPowers[MotorType.BACK_LEFT.value]);
-        backRight.setPower(motorPowers[MotorType.BACK_RIGHT.value]);
+        frontLeft.setPower((forward + sideways + rotation) * speed);
+        frontRight.setPower((forward - sideways) - rotation * speed);
+        backLeft.setPower((forward - sideways) + rotation * speed);
+        backRight.setPower(forward + (sideways - rotation) * speed);
+
+
     }
 
     public double[] normalizeMotorPowers(double[] motorPowers){
 
-        double maxPower = 0.0;
+        double maxPower = 1.0;
 
         for(int i = 0; i < motorPowers.length; i++){
             // See which power is the largest.
