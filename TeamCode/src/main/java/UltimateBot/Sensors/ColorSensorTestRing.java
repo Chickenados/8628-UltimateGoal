@@ -17,7 +17,8 @@ public class ColorSensorTestRing extends LinearOpMode {
     public void runOpMode() {
         //so I don't have to add a second value to telemetry when not needed
         String space = " ";
-        boolean fourRings;
+        //is there 4 rings???
+        boolean fourRings = false;
         //true if at least one ring detected
         boolean anyring;
         // get a reference to the front-facing color sensor.
@@ -71,24 +72,18 @@ public class ColorSensorTestRing extends LinearOpMode {
         sleep(1000);
 
         //color sensor around halfway up the robot detects if there are any rings there.
-        if (hsvValuesport2[0] > 6 && hsvValuesport2[0] < 22) {
+        if (hsvValuesport2[0] > 13 && hsvValuesport2[0] < 29) {
             telemetry.addData("There are 4 rings on this stack!", space);
             fourRings = true;
         }
 
-        else anyring = true; {
+        if (fourRings == false && anyring==true) {
             telemetry.addData("There is 1 ring on this stack!", space);
         }
 
         telemetry.update();
 
         sleep(3000);
-
-        if (anyring = false) {
-            telemetry.addData("There are 0 rings on this stack!", space);
-        }
-
         telemetry.update();
-        sleep(4000);
     }
 }
