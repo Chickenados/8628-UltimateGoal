@@ -21,13 +21,19 @@ public class ClairesUltimateBotTeleop extends OpMode {
     @Override
     public void loop() {
         telemetry.addData("Our Heading", robot.getHeading(AngleUnit.DEGREES));
-        robot.getMotorRevolutions();
-
-        //tank drive
-        //robot.setLeftSideSpeed(gamepad1.left_stick_y);
-        //robot.setRightSideSpeed(gamepad1.right_stick_y);
+        //robot.getMotorRevolutions();
         //mecanum drive
         robot.mecanumDrive(gamepad1.right_stick_y, -gamepad1.right_stick_x, -gamepad1.left_stick_x);
+
+        if (gamepad1.left_bumper){
+            robot.shoot(1.0);
+        }
+        robot.setLauncherServoPosition(0.5);
+        if (gamepad1.a) {
+            robot.setLauncherServoPosition(1.0);
+        } else if (gamepad1.b){
+            robot.setLauncherServoPosition(0);
+        }
 
     }
 }

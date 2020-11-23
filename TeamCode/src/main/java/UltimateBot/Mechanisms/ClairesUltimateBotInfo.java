@@ -5,6 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorController;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
@@ -21,6 +22,12 @@ public class ClairesUltimateBotInfo {
     private DcMotor frontLeft;
     private DcMotor frontRight;
 
+    //modules!
+    //launcher servo
+    private Servo launcherServo;
+    private DcMotor spinner;
+    private DcMotor wobbleLift;
+    private DcMotor intakeMotor;
     //encoders
     private double backLeftTicksPerRev;
     private double backRightTicksPerRev;
@@ -62,6 +69,23 @@ public class ClairesUltimateBotInfo {
         frontLeftTicksPerRev = frontLeft.getMotorType().getTicksPerRev();
         frontRightTicksPerRev = frontRight.getMotorType().getTicksPerRev();
 */
+
+      //modules
+        launcherServo = hwMap.get(Servo.class, "launcherServo");
+
+        spinner = hwMap.get(DcMotor.class, "spinner");
+        spinner.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        spinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        intakeMotor = hwMap.get(DcMotor.class, "intakeMotor");
+        intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        wobbleLift = hwMap.get(DcMotor.class, "wobbleLift");
+        wobbleLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        wobbleLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+
         //imu
         imu = hwMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters params = new BNO055IMU.Parameters();
@@ -82,6 +106,16 @@ public class ClairesUltimateBotInfo {
 
 
     }
+    public void shoot(double speed){
+        spinner.setPower(speed);
+    }
+    public void runIntake(double speed){
+        intakeMotor.setPower(speed);
+    }
+    public void moveWobble(double speed){
+        wobbleLift.setPower(speed);
+    }
+
     //for tank drive
     public void setLeftSideSpeed(double speed) {
         frontLeft.setPower(speed);
@@ -97,6 +131,10 @@ public class ClairesUltimateBotInfo {
     public void setSpeed(double speed) {
         setRightSideSpeed(speed);
         setLeftSideSpeed(speed);
+    }
+
+    public void setLauncherServoPosition(double position){
+        launcherServo.setPosition(position);
     }
 
     public double getBackLeftMotorRevolutions() {
