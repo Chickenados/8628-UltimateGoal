@@ -29,8 +29,8 @@ public class OdometryCalibration extends LinearOpMode {
     BNO055IMU imu;
 
     //Hardware Map Names for drive motors and odometry wheels. THIS WILL CHANGE ON EACH ROBOT, YOU NEED TO UPDATE THESE VALUES ACCORDINGLY
-    String frontRightName = "frontRight", rbName = "backRight", lfName = "frontLeft", lbName = "backLeft";
-    String verticalLeftEncoderName = lfName, verticalRightEncoderName = frontRightName, horizontalEncoderName = lbName;
+    String rfName = "frontRight", rbName = "backRight", lfName = "frontLeft", lbName = "backLeft";
+    String verticalLeftEncoderName = lfName, verticalRightEncoderName = rfName, horizontalEncoderName = lbName;
 
     final double PIVOT_SPEED = 0.5;
 
@@ -48,7 +48,7 @@ public class OdometryCalibration extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         //Initialize hardware map values. PLEASE UPDATE THESE VALUES TO MATCH YOUR CONFIGURATION
-        initHardwareMap(frontRightName, rbName, lfName, lbName, verticalLeftEncoderName, verticalRightEncoderName, horizontalEncoderName);
+        initHardwareMap(rfName, rbName, lfName, lbName, verticalLeftEncoderName, verticalRightEncoderName, horizontalEncoderName);
 
         //Initialize IMU hardware map value. PLEASE UPDATE THIS VALUE TO MATCH YOUR CONFIGURATION
         imu = hardwareMap.get(BNO055IMU.class, "imu");
@@ -73,7 +73,7 @@ public class OdometryCalibration extends LinearOpMode {
 
         //Begin calibration (if robot is unable to pivot at these speeds, please adjust the constant at the top of the code
         while(getZAngle() < 90 && opModeIsActive()){
-            frontLeft.setPower(-PIVOT_SPEED);
+            frontRight.setPower(-PIVOT_SPEED);
             backRight.setPower(-PIVOT_SPEED);
             frontLeft.setPower(PIVOT_SPEED);
             backLeft.setPower(PIVOT_SPEED);

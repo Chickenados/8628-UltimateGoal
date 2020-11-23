@@ -25,7 +25,7 @@ public class ClairesUltimateBotTeleop extends OpMode {
         //mecanum drive
         robot.mecanumDrive(gamepad1.right_stick_y, -gamepad1.right_stick_x, -gamepad1.left_stick_x);
 
-        if (gamepad1.left_bumper){
+     /*   if (gamepad1.left_bumper){
             robot.shoot(1.0);
         }
         robot.setLauncherServoPosition(0.5);
@@ -34,6 +34,6 @@ public class ClairesUltimateBotTeleop extends OpMode {
         } else if (gamepad1.b){
             robot.setLauncherServoPosition(0);
         }
-
+*/
     }
 }

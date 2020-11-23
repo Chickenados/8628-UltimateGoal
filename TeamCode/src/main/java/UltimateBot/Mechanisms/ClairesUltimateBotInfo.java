@@ -71,7 +71,7 @@ public class ClairesUltimateBotInfo {
 */
 
       //modules
-        launcherServo = hwMap.get(Servo.class, "launcherServo");
+       /* launcherServo = hwMap.get(Servo.class, "launcherServo");
 
         spinner = hwMap.get(DcMotor.class, "spinner");
         spinner.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -84,7 +84,7 @@ public class ClairesUltimateBotInfo {
         wobbleLift = hwMap.get(DcMotor.class, "wobbleLift");
         wobbleLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         wobbleLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
+*/
 
         //imu
         imu = hwMap.get(BNO055IMU.class, "imu");
@@ -106,7 +106,7 @@ public class ClairesUltimateBotInfo {
 
 
     }
-    public void shoot(double speed){
+   /* public void shoot(double speed){
         spinner.setPower(speed);
     }
     public void runIntake(double speed){
@@ -115,7 +115,7 @@ public class ClairesUltimateBotInfo {
     public void moveWobble(double speed){
         wobbleLift.setPower(speed);
     }
-
+*/
     //for tank drive
     public void setLeftSideSpeed(double speed) {
         frontLeft.setPower(speed);
