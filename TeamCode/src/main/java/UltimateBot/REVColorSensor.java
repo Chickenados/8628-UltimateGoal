@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
@@ -47,7 +48,10 @@ public class REVColorSensor extends LinearOpMode {
     DistanceSensor distanceSensor;
     ColorSensor colorSensor1;
     DistanceSensor distanceSensor1;
-
+    DcMotor leftFront;
+    DcMotor leftBack;
+    DcMotor rightFront;
+    DcMotor rightBack;
     @Override
     public void runOpMode() {
 
@@ -62,6 +66,18 @@ public class REVColorSensor extends LinearOpMode {
 
         // get a reference to the second distance sensor that shares the same name.
         distanceSensor1 = hardwareMap.get(DistanceSensor.class, "colorSensor1");
+
+        leftFront = hardwareMap.dcMotor.get("frontLeft");
+
+        rightFront = hardwareMap.dcMotor.get("frontRight");
+
+        leftFront.setDirection(DcMotor.Direction.REVERSE);
+
+        leftBack = hardwareMap.dcMotor.get("backLeft");
+
+        rightBack = hardwareMap.dcMotor.get("backRight");
+
+        leftBack.setDirection(DcMotor.Direction.REVERSE);
 
         // hsvValues is an array that will hold the hue, saturation, and value information of the first color sensor
         float hsvValues[] = {0F, 0F, 0F};
