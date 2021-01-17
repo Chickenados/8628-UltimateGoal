@@ -65,6 +65,15 @@ public class ColorSensorTestRing extends LinearOpMode {
         final double SCALE_FACTOR = 255;
         waitForStart();
 
+        leftFront.setPower(.25);
+        rightFront.setPower(.25);
+        leftBack.setPower(.25);
+        rightBack.setPower(.25);
+        sleep(2350);
+        leftFront.setPower(0);
+        rightFront.setPower(0);
+        leftBack.setPower(0);
+        rightBack.setPower(0);
         // convert the forward facing RGB values to HSV values.
         Color.RGBToHSV((colorSensorport1.red()),
                 (colorSensorport1.green()),
@@ -88,23 +97,23 @@ public class ColorSensorTestRing extends LinearOpMode {
         telemetry.clearAll();
 
         //color sensor positioned at the bottom of the robot detects if there is 0 or any rings next to the robot.
-        if (hsvValuesport2[0] > 13 && hsvValuesport2[0] < 30) {
+        if (hsvValuesport2[0] > 13 && hsvValuesport2[0] < 35) {
             telemetry.addData("1 ring or 4 rings.", space);
         }
         telemetry.update();
         sleep(1000);
 
 
-        if (hsvValuesport1[0] > 47 && hsvValuesport1[0] < 75) {
+        if (hsvValuesport1[0] > 36 && hsvValuesport1[0] < 81) {
             telemetry.addData("There are 4 rings there. MOVE TO C", space);
             telemetry.update();
             fourRings = true;
             anyring = true;
-            leftFront.setPower(-1);
-            rightFront.setPower(1);
-            leftBack.setPower(-1);
-            rightBack.setPower(1);
-            sleep(500);
+            leftFront.setPower(.5);
+            rightFront.setPower(.5);
+            leftBack.setPower(.5);
+            rightBack.setPower(.5);
+            sleep(3600);
             leftFront.setPower(0);
             rightFront.setPower(0);
             leftBack.setPower(0);
@@ -118,11 +127,11 @@ public class ColorSensorTestRing extends LinearOpMode {
             telemetry.addData("There is 1 ring there. MOVE TO B", space);
             telemetry.update();
             anyring = true;
-            leftFront.setPower(1);
-            rightFront.setPower(-1);
-            leftBack.setPower(1);
-            rightBack.setPower(-1);
-            sleep(500);
+            leftFront.setPower(.5);
+            rightFront.setPower(.5);
+            leftBack.setPower(.5);
+            rightBack.setPower(.5);
+            sleep(2800);
             leftFront.setPower(0);
             rightFront.setPower(0);
             leftBack.setPower(0);
@@ -136,11 +145,11 @@ public class ColorSensorTestRing extends LinearOpMode {
         if (anyring != true && fourRings != true) {
             telemetry.addData("I don't see anyring. 0 rings. MOVE TO A", space);
             telemetry.update();
-            leftFront.setPower(1);
-            rightFront.setPower(1);
-            leftBack.setPower(1);
-            rightBack.setPower(1);
-            sleep(500);
+            leftFront.setPower(.5);
+            rightFront.setPower(.5);
+            leftBack.setPower(.5);
+            rightBack.setPower(.5);
+            sleep(1700);
             leftFront.setPower(0);
             rightFront.setPower(0);
             leftBack.setPower(0);
