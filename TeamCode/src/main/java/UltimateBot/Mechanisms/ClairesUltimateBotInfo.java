@@ -23,11 +23,19 @@ public class ClairesUltimateBotInfo {
     private DcMotor frontRight;
 
     //modules!
-    //launcher servo
+    //launcher stuff
     private Servo launcherServo;
     private DcMotor spinner;
+
+    //wobble goal stuff
     private DcMotor wobbleLift;
+    private Servo wobbleServo;
+
+    //intake stuff
     private DcMotor intakeMotor;
+    private Servo intakeServo;
+
+
     //encoders
     private double backLeftTicksPerRev;
     private double backRightTicksPerRev;
@@ -40,15 +48,16 @@ public class ClairesUltimateBotInfo {
     //mecanum?
     public MecanumDriveBase mecanumDriveBase;
 
+
     public void init(HardwareMap hwMap) {
 
         mecanumDriveBase = new MecanumDriveBase(frontLeft, frontRight, backLeft, backRight);
         //drivetrain systems
 
-        backLeft = hwMap.get(DcMotor.class, "backLeft");
-        backRight = hwMap.get(DcMotor.class, "backRight");
-        frontLeft = hwMap.get(DcMotor.class, "frontLeft");
-        frontRight = hwMap.get(DcMotor.class, "frontRight");
+        backLeft = hwMap.get(DcMotor.class, "lb");
+        backRight = hwMap.get(DcMotor.class, "rb");
+        frontLeft = hwMap.get(DcMotor.class, "lf");
+        frontRight = hwMap.get(DcMotor.class, "rf");
 
         backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -71,20 +80,26 @@ public class ClairesUltimateBotInfo {
 */
 
       //modules
-       /* launcherServo = hwMap.get(Servo.class, "launcherServo");
+        //launcher module stuff
+        launcherServo = hwMap.get(Servo.class, "launcherServo");
 
         spinner = hwMap.get(DcMotor.class, "spinner");
-        spinner.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        spinner.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         spinner.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        //wobble goal stuff
+        wobbleLift = hwMap.get(DcMotor.class, "wobbleLift");
+        wobbleLift.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        wobbleLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        wobbleServo = hwMap.get(Servo.class, "wobbleServo");
+
+        //intake stuff
         intakeMotor = hwMap.get(DcMotor.class, "intakeMotor");
-        intakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        intakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        wobbleLift = hwMap.get(DcMotor.class, "wobbleLift");
-        wobbleLift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        wobbleLift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-*/
+        intakeServo = hwMap.get(Servo.class, "intakeServo");
 
         //imu
         imu = hwMap.get(BNO055IMU.class, "imu");
@@ -106,7 +121,15 @@ public class ClairesUltimateBotInfo {
 
 
     }
-   /* public void shoot(double speed){
+
+    public double getHeading(AngleUnit angleUnit) {
+        Orientation angles = imu.getAngularOrientation(AxesReference.EXTRINSIC,
+                AxesOrder.ZYX,
+                angleUnit);
+        return angles.firstAngle;
+    }
+
+    public void setSpinnerSpeed(double speed){
         spinner.setPower(speed);
     }
     public void runIntake(double speed){
@@ -115,8 +138,17 @@ public class ClairesUltimateBotInfo {
     public void moveWobble(double speed){
         wobbleLift.setPower(speed);
     }
-*/
-    //for tank drive
+    public void launcherServoPosition(double position){
+        launcherServo.setPosition(position);
+    }
+    public void grabWobbleGoal(double position){
+        wobbleServo.setPosition(position);
+    }
+    public void moveRingFromIntake(double position){
+        intakeServo.setPosition(position);
+    }
+
+   /* //for tank drive
     public void setLeftSideSpeed(double speed) {
         frontLeft.setPower(speed);
         backLeft.setPower(speed);
@@ -133,9 +165,7 @@ public class ClairesUltimateBotInfo {
         setLeftSideSpeed(speed);
     }
 
-    public void setLauncherServoPosition(double position){
-        launcherServo.setPosition(position);
-    }
+
 
     public double getBackLeftMotorRevolutions() {
         return backLeft.getCurrentPosition() / backLeftTicksPerRev;
@@ -160,12 +190,7 @@ public class ClairesUltimateBotInfo {
         getFrontRightMotorRevolutions();
     }
 
-    public double getHeading(AngleUnit angleUnit) {
-        Orientation angles = imu.getAngularOrientation(AxesReference.EXTRINSIC,
-                AxesOrder.ZYX,
-                angleUnit);
-        return angles.firstAngle;
-    }
+ */
 
 
 }
