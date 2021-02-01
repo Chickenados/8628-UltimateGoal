@@ -64,13 +64,13 @@ public class ClairesUltimateBotTeleop extends OpMode {
             robot.runIntake(0.5);
         } else{robot.runIntake(0);}
 
-        //intake servo
+        /*intake servo
         robot.moveRingFromIntake(0.5);
         if (gamepad2.a) {
             robot.moveRingFromIntake(1.0);
         } else if (gamepad2.b) {
             robot.moveRingFromIntake(0);
         }
-
+*/
     }
 }

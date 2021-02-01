@@ -66,7 +66,7 @@ public class GlobalCoordinatePositionUpdateSample extends LinearOpMode {
         Thread positionThread = new Thread(globalPositionUpdate);
         positionThread.start();
 
-        globalPositionUpdate.reverseLeftEncoder();
+        globalPositionUpdate.reverseRightEncoder();
         globalPositionUpdate.reverseNormalEncoder();
 
         while(opModeIsActive()){

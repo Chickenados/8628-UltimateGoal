@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
-//import org.firstinspires.ftc.teamcode.Robot.Drivetrain.Odometry.OdometryGlobalCoordinatePosition;
+//import org.firstinspires.ftc.teamcode.UltimateBot.Odometry.OdometryGlobalCoordinatePosition;
 
 /**
  * Created by Sarthak on 10/4/2019.
@@ -41,6 +41,10 @@ public class MyOdometryOpmode extends LinearOpMode {
 
         globalPositionUpdate.reverseRightEncoder();
         globalPositionUpdate.reverseNormalEncoder();
+
+        goToPosition(10*COUNTS_PER_INCH,10*COUNTS_PER_INCH, 0.5, 15, 1*COUNTS_PER_INCH);
+        goToPosition(0*COUNTS_PER_INCH, 20*COUNTS_PER_INCH, 0.5, 0, 1*COUNTS_PER_INCH);
+
 
         while(opModeIsActive()){
             //Display Global (x, y, theta) coordinates
@@ -81,6 +85,8 @@ public class MyOdometryOpmode extends LinearOpMode {
         frontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         backLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+        frontRight.setDirection(DcMotorSimple.Direction.REVERSE);
+
         verticalLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         verticalRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         horizontal.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -103,6 +109,33 @@ public class MyOdometryOpmode extends LinearOpMode {
         telemetry.update();
     }
 
+    public void goToPosition(double targetXPosition, double targetYPosition, double robotPower, double desiredRobotOrientation, double allowableDistanceError) {
+        double distanceToXTarget = targetXPosition - globalPositionUpdate.returnXCoordinate();
+        double distanceToYTarget = targetYPosition - globalPositionUpdate.returnYCoordinate();
+        double distance = Math.hypot(distanceToXTarget,distanceToYTarget);
+
+        while (opModeIsActive() && distance > allowableDistanceError){
+            distanceToXTarget = targetXPosition - globalPositionUpdate.returnXCoordinate();
+            distanceToYTarget = targetYPosition - globalPositionUpdate.returnYCoordinate();
+            double robotMovementAngle = Math.toDegrees(Math.atan2(distanceToXTarget,distanceToYTarget));
+            double robotMovementXComponent = calculateX(robotMovementAngle,robotPower);
+            double robotMovementYComponent = calculateY(robotMovementAngle,robotPower);
+            double pivotCorrection = desiredRobotOrientation - globalPositionUpdate.returnOrientation();
+            mecanumDrive(robotMovementYComponent,-robotMovementXComponent,pivotCorrection);
+        }
+
+    }
+
+    public void mecanumDrive(double forward, double sideways, double rotation){
+
+        // Set the power of each motor
+        frontLeft.setPower((forward + sideways + rotation) * 1.0);
+        frontRight.setPower((forward - sideways) - rotation * 1.0);
+        backLeft.setPower((forward - sideways) + rotation * 1.0);
+        backRight.setPower(forward + (sideways - rotation) * 1.0);
+
+
+    }
     /**
      * Calculate the power in the x direction
      * @param desiredAngle angle on the x axis

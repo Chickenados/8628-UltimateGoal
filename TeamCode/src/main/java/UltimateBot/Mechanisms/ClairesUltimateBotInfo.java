@@ -33,7 +33,7 @@ public class ClairesUltimateBotInfo {
 
     //intake stuff
     private DcMotor intakeMotor;
-    private Servo intakeServo;
+    //private Servo intakeServo;
 
 
     //encoders
@@ -98,8 +98,8 @@ public class ClairesUltimateBotInfo {
         intakeMotor = hwMap.get(DcMotor.class, "intakeMotor");
         intakeMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         intakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        intakeServo = hwMap.get(Servo.class, "intakeServo");
+        intakeMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        //intakeServo = hwMap.get(Servo.class, "intakeServo");
 
         //imu
         imu = hwMap.get(BNO055IMU.class, "imu");
@@ -144,10 +144,10 @@ public class ClairesUltimateBotInfo {
     public void grabWobbleGoal(double position){
         wobbleServo.setPosition(position);
     }
-    public void moveRingFromIntake(double position){
+    /*public void moveRingFromIntake(double position){
         intakeServo.setPosition(position);
     }
-
+*/
    /* //for tank drive
     public void setLeftSideSpeed(double speed) {
         frontLeft.setPower(speed);
