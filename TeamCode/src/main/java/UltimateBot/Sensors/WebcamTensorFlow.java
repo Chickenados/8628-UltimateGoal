@@ -29,6 +29,7 @@
 
 package UltimateBot.Sensors;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -39,6 +40,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 /**
  * This 2020-2021 OpMode illustrates the basics of using the TensorFlow Object Detection API to
@@ -50,12 +52,16 @@ import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
  * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
  * is explained below.
  */
-@TeleOp(name = "WebcamTensorFlow", group = "Concept")
+@Autonomous(name = "WebcamTensorFlow", group = "Concept")
 public class WebcamTensorFlow extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Quad";
     private static final String LABEL_SECOND_ELEMENT = "Single";
-
+    DcMotor lf;
+    DcMotor lb;
+    DcMotor rf;
+    DcMotor rb;
+    String space = " ";
     /*
      * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
      * 'parameters.vuforiaLicenseKey' is initialized is for illustration only, and will not function.
@@ -88,6 +94,15 @@ public class WebcamTensorFlow extends LinearOpMode {
         // first.
         initVuforia();
         initTfod();
+        lf = hardwareMap.dcMotor.get("lf");
+
+        rf = hardwareMap.dcMotor.get("rf");
+
+        lb = hardwareMap.dcMotor.get("lb");
+
+        rb = hardwareMap.dcMotor.get("rb");
+
+        lb.setDirection(DcMotor.Direction.REVERSE);
 
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
@@ -138,11 +153,29 @@ public class WebcamTensorFlow extends LinearOpMode {
 
         if (opModeIsActive()) {
             if (rings.equals("Quad")) {
-                
+                telemetry.addData("There are 4 rings there. MOVE TO C", space);
+                telemetry.update();
+                lf.setPower(-.5);
+                rf.setPower(.5);
+                lb.setPower(-.5);
+                rb.setPower(.5);
+                sleep(500);
+                lf.setPower(0);
+                rf.setPower(0);
+                lb.setPower(0);
+                rb.setPower(0);
             } else if (rings.equals("Single")) {
-
-            } else {
-
+                telemetry.addData("There is 1 ring there. MOVE TO B", space);
+                telemetry.update();
+                lf.setPower(.5);
+                rf.setPower(-.5);
+                lb.setPower(.5);
+                rb.setPower(-.5);
+                sleep(500);
+                lf.setPower(0);
+                rf.setPower(0);
+                lb.setPower(0);
+                rb.setPower(0);
             }
         }
         if (tfod != null) {
