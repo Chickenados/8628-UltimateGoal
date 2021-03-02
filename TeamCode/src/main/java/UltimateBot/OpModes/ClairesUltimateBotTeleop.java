@@ -31,6 +31,7 @@ public class ClairesUltimateBotTeleop extends OpMode {
         //shooter spinner thingy motor
         if (gamepad1.left_bumper) {
             robot.setSpinnerSpeed(0.75);
+            //TO DO: figure out ideal speed for spinner!!
         } else{ robot.setSpinnerSpeed(0);}
 
         //servo that moves the rings towards the spinner

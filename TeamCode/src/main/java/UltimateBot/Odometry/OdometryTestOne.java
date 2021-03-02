@@ -12,6 +12,10 @@ public class OdometryTestOne extends LinearOpMode {
     public void runOpMode() {
         ClairesUltimateBotInfo robot = new ClairesUltimateBotInfo();
         MyOdometryOpmode odom = new MyOdometryOpmode();
-
+        odom.goToPosition(20,10,0.7,0.0,2.0);
+        robot.setSpinnerSpeed(1.0);
+        if(getRuntime()>=15.0){
+            robot.setSpinnerSpeed(0.0);
+        }
     }
 }

@@ -42,6 +42,9 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import UltimateBot.Mechanisms.ClairesUltimateBotInfo;
+import UltimateBot.OpModes.AutoMoveForward;
+
 /**
  * This 2020-2021 OpMode illustrates the basics of using the TensorFlow Object Detection API to
  * determine the position of the Ultimate Goal game elements.
@@ -57,11 +60,10 @@ public class WebcamTensorFlow extends LinearOpMode {
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";
     private static final String LABEL_FIRST_ELEMENT = "Quad";
     private static final String LABEL_SECOND_ELEMENT = "Single";
-    DcMotor lf;
-    DcMotor lb;
-    DcMotor rf;
-    DcMotor rb;
+
     String space = " ";
+    double lastTime;
+    ClairesUltimateBotInfo ultimateBot = new ClairesUltimateBotInfo();
     /*
      * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
      * 'parameters.vuforiaLicenseKey' is initialized is for illustration only, and will not function.
@@ -88,13 +90,18 @@ public class WebcamTensorFlow extends LinearOpMode {
      * Detection engine.
      */
     private TFObjectDetector tfod;
+
+
     @Override
     public void runOpMode() {
+        lastTime = getRuntime();
         // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
         // first.
         initVuforia();
         initTfod();
-        lf = hardwareMap.dcMotor.get("lf");
+        //Check if this is right!!!!! -claire
+        ultimateBot.init(hardwareMap);
+        /*lf = hardwareMap.dcMotor.get("lf");
 
         rf = hardwareMap.dcMotor.get("rf");
 
@@ -103,7 +110,7 @@ public class WebcamTensorFlow extends LinearOpMode {
         rb = hardwareMap.dcMotor.get("rb");
 
         lb.setDirection(DcMotor.Direction.REVERSE);
-
+*/
         /**
          * Activate TensorFlow Object Detection before we wait for the start command.
          * Do it here so that the Camera Stream window will have the TensorFlow annotations visible.
@@ -128,7 +135,8 @@ public class WebcamTensorFlow extends LinearOpMode {
         waitForStart();
         String rings = "none";
         if (opModeIsActive()) {
-            while (opModeIsActive() && rings.equals("none")) {
+            lastTime = getRuntime();
+            while (opModeIsActive() && rings.equals("none") || getRuntime()-lastTime>=5.0) {
                 if (tfod != null) {
                     // getUpdatedRecognitions() will return null if no new information is available since
                     // the last time that call was made.
@@ -146,36 +154,43 @@ public class WebcamTensorFlow extends LinearOpMode {
                                     recognition.getRight(), recognition.getBottom());
                         }
                         telemetry.update();
+                        lastTime = getRuntime();
                     }
                 }
             }
         }
 
         if (opModeIsActive()) {
+
             if (rings.equals("Quad")) {
+                lastTime=getRuntime();
                 telemetry.addData("There are 4 rings there. MOVE TO C", space);
                 telemetry.update();
-                lf.setPower(-.5);
-                rf.setPower(.5);
-                lb.setPower(-.5);
-                rb.setPower(.5);
-                sleep(500);
-                lf.setPower(0);
-                rf.setPower(0);
-                lb.setPower(0);
-                rb.setPower(0);
+                  /*  while (getRuntime()-lastTime>=10.0) {
+                        ultimateBot.mecanumDrive(0.0, 0.5, 0.0);
+                    }
+                    lastTime=getRuntime();
+                    while (getRuntime()-lastTime>=2.5) {
+                        ultimateBot.mecanumDrive(-0.8, 0.0, 0.0);
+                        //reset these values to go to C location
+                    }
+*/
             } else if (rings.equals("Single")) {
+                lastTime=getRuntime();
                 telemetry.addData("There is 1 ring there. MOVE TO B", space);
                 telemetry.update();
-                lf.setPower(.5);
-                rf.setPower(-.5);
-                lb.setPower(.5);
-                rb.setPower(-.5);
-                sleep(500);
-                lf.setPower(0);
-                rf.setPower(0);
-                lb.setPower(0);
-                rb.setPower(0);
+                while(getRuntime()-lastTime>=7.0) {
+                    ultimateBot.mecanumDrive(-1.0, -0.4, 0.0); //rotation and sideways must be negative!
+                    //reset these values to go to C location
+                }
+            } else {
+                lastTime=getRuntime();
+                telemetry.addData("There are 0 rings there. MOVE TO A", space);
+                telemetry.update();
+                while(getRuntime()-lastTime>=7.0) {
+                    ultimateBot.mecanumDrive(-1.0, -0.4, 0.0); //rotation and sideways must be negative!
+                    //reset these values to go to A location
+                }
             }
         }
         if (tfod != null) {
