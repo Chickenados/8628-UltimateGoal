@@ -29,13 +29,14 @@ public class OdometryCalibration extends LinearOpMode {
     BNO055IMU imu;
 
     //Hardware Map Names for drive motors and odometry wheels. THIS WILL CHANGE ON EACH ROBOT, YOU NEED TO UPDATE THESE VALUES ACCORDINGLY
-    String rfName = "frontRight", rbName = "backRight", lfName = "frontLeft", lbName = "backLeft";
-    String verticalLeftEncoderName = lfName, verticalRightEncoderName = rfName, horizontalEncoderName = lbName;
+    String rfName = "rf", rbName = "rb", lfName = "lf", lbName = "lb";
+    String verticalLeftEncoderName = rbName, verticalRightEncoderName = lfName, horizontalEncoderName = rfName;
 
     final double PIVOT_SPEED = 0.5;
 
     //The amount of encoder ticks for each inch the robot moves. THIS WILL CHANGE FOR EACH ROBOT AND NEEDS TO BE UPDATED HERE
-    final double COUNTS_PER_INCH = 1500;
+
+    final double COUNTS_PER_INCH = 179.53;
 
     ElapsedTime timer = new ElapsedTime();
 
@@ -133,8 +134,8 @@ public class OdometryCalibration extends LinearOpMode {
         }
     }
 
-    private void initHardwareMap(String frontRightName, String rbName, String lfName, String lbName, String vlEncoderName, String vrEncoderName, String hEncoderName){
-        frontRight = hardwareMap.dcMotor.get(frontRightName);
+    private void initHardwareMap(String rfName, String rbName, String lfName, String lbName, String vlEncoderName, String vrEncoderName, String hEncoderName){
+        frontRight = hardwareMap.dcMotor.get(rfName);
         backRight = hardwareMap.dcMotor.get(rbName);
         frontLeft = hardwareMap.dcMotor.get(lfName);
         backLeft = hardwareMap.dcMotor.get(lbName);
@@ -184,16 +185,16 @@ public class OdometryCalibration extends LinearOpMode {
 
     /**
      * Sets power to all four drive motors
-     * @param front_Right power for right front motor
-     * @param back_Right power for right back motor
-     * @param front_Left power for left front motor
-     * @param back_Left power for left back motor
+     * @param rf power for right front motor
+     * @param rb power for right back motor
+     * @param lf power for left front motor
+     * @param lb power for left back motor
      */
-    private void setPowerAll(double front_Right, double back_Right, double front_Left, double back_Left){
-        frontRight.setPower(front_Right);
-        backRight.setPower(back_Right);
-        frontLeft.setPower(front_Left);
-        backLeft.setPower(back_Left);
+    private void setPowerAll(double rf, double rb, double lf, double lb){
+        frontRight.setPower(rf);
+        backRight.setPower(rb);
+        frontLeft.setPower(lf);
+        backLeft.setPower(lb);
     }
 
 }

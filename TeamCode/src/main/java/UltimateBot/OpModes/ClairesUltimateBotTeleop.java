@@ -24,15 +24,52 @@ public class ClairesUltimateBotTeleop extends OpMode {
         //robot.getMotorRevolutions();
         //mecanum drive
         robot.mecanumDrive(gamepad1.right_stick_y, -gamepad1.right_stick_x, -gamepad1.left_stick_x);
-
-     /*   if (gamepad1.left_bumper){
-            robot.shoot(1.0);
+        if(gamepad1.left_trigger>=0.01){
+            robot.mecanumDrive(0.5*gamepad1.right_stick_y,-0.5*gamepad1.right_stick_x, -0.5*gamepad1.left_stick_x);
         }
-        robot.setLauncherServoPosition(0.5);
+
+        //shooter spinner thingy motor
+        if (gamepad1.left_bumper) {
+            robot.setSpinnerSpeed(0.75);
+        } else{ robot.setSpinnerSpeed(0);}
+
+        //servo that moves the rings towards the spinner
+        robot.launcherServoPosition(0.5);
         if (gamepad1.a) {
-            robot.setLauncherServoPosition(1.0);
-        } else if (gamepad1.b){
-            robot.setLauncherServoPosition(0);
+            robot.launcherServoPosition(1.0);
+        } else if (gamepad1.b) {
+            robot.launcherServoPosition(0);
+        }
+
+        //wobble goal motor
+        robot.moveWobble(0);
+        if (gamepad2.right_bumper) {
+            robot.moveWobble(0.7);
+        } else if(gamepad2.left_bumper) {
+            robot.moveWobble(-0.7);
+        } else{
+            robot.moveWobble(0);
+        }
+
+        //wobble servo
+        robot.grabWobbleGoal(0.5);
+        if (gamepad2.x) {
+            robot.grabWobbleGoal(1.0);
+        } else if (gamepad2.y) {
+            robot.grabWobbleGoal(0);
+        }
+
+        //intake motor
+        if (gamepad1.right_bumper) {
+            robot.runIntake(0.5);
+        } else{robot.runIntake(0);}
+
+        /*intake servo
+        robot.moveRingFromIntake(0.5);
+        if (gamepad2.a) {
+            robot.moveRingFromIntake(1.0);
+        } else if (gamepad2.b) {
+            robot.moveRingFromIntake(0);
         }
 */
     }
