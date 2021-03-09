@@ -25,7 +25,7 @@ public class ClairesUltimateBotTeleop extends OpMode {
         //mecanum drive
         robot.mecanumDrive(gamepad1.right_stick_y, -gamepad1.right_stick_x, -gamepad1.left_stick_x);
         if(gamepad1.left_trigger>=0.01){
-            robot.mecanumDrive(0.5*gamepad1.right_stick_y,-0.5*gamepad1.right_stick_x, -0.5*gamepad1.left_stick_x);
+            robot.mecanumDrive(0.3*gamepad1.right_stick_y,-0.3*gamepad1.right_stick_x, -0.3*gamepad1.left_stick_x);
         }
 
         //shooter spinner thingy motor
@@ -55,9 +55,9 @@ public class ClairesUltimateBotTeleop extends OpMode {
         //wobble servo
         robot.grabWobbleGoal(0.5);
         if (gamepad2.x) {
-            robot.grabWobbleGoal(1.0);
+            robot.grabWobbleGoal(0.9);
         } else if (gamepad2.y) {
-            robot.grabWobbleGoal(0);
+            robot.grabWobbleGoal(0.1);
         }
 
         //intake motor

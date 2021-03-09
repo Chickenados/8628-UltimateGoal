@@ -18,7 +18,7 @@ public class CombinedAuto extends LinearOpMode {
         PAUSE,
         FORWARD,
         TURNAROUND,
-        BACKTOFOUR,
+        GOTOFOUR,
         STRAFETOONE,
         BACKTOONE,
         END
@@ -71,7 +71,7 @@ public class CombinedAuto extends LinearOpMode {
                     //DONT CHANGE THESE PERFECT NUMBERS
                     robot.mecanumDrive(-1.0, 0.0, 0);
                     if (getRuntime() >= lastTime + 0.85/*&& rings.equals("single")*/) {
-                        state = CombinedAuto.State.BACKTOFOUR;
+                        state = CombinedAuto.State.GOTOFOUR;
                         lastTime = getRuntime();
                     } /*else if .85 seconds have passed and rings.equals("quad")*/
                     /*else if .85 seconds have passed and rings.equals("none")*/
@@ -81,12 +81,12 @@ public class CombinedAuto extends LinearOpMode {
                     //DONT CHANGE THESE PERFECT NUMBERS
                     robot.mecanumDrive(0.0, 0, 1.0); //180 TURN
                     if (getRuntime() >= lastTime + 2.4) {
-                        state = CombinedAuto.State.BACKTOFOUR;
+                        state = CombinedAuto.State.GOTOFOUR;
                         lastTime = getRuntime();
                     }
                     telemetry.update();
                     break;
-                case BACKTOFOUR:
+                case GOTOFOUR:
                     robot.mecanumDrive(0.8, 0.0, 0);
                     if (getRuntime() >= lastTime + 1.0) {
                         state = CombinedAuto.State.END;

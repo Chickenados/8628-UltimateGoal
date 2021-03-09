@@ -15,9 +15,9 @@ public class AutoMoveForward extends OpMode {
         PAUSE,
         FORWARD,
         TURNAROUND,
-        BACKTOFOUR,
+        GOTOFOUR,
         STRAFETOONE,
-        BACKTOONE,
+        GOTOONE,
         END
     }
     ClairesUltimateBotInfo robot = new ClairesUltimateBotInfo();
@@ -66,38 +66,41 @@ public class AutoMoveForward extends OpMode {
                 break;
             case FORWARD:
                 //DONT CHANGE THESE PERFECT NUMBERS
-                robot.mecanumDrive(-1.0,0.0,0);
+                robot.mecanumDrive(-1.0,0.0,-0.1);
                 if (getRuntime() >= lastTime+0.85/*&& rings.equals("single")*/) {
-                    state = State.BACKTOFOUR;
+                    state = State.GOTOFOUR;//changes based on number of rings, go to TURNAROUND if "none" is true
                     lastTime=getRuntime();
                 } /*else if .85 seconds have passed and rings.equals("quad")*/
                 /*else if .85 seconds have passed and rings.equals("none")*/
                 break;
+
+            case GOTOFOUR:
+                //Go to this state when "Quad" is true after FORWARD, before TURNAROUND
+                robot.mecanumDrive(-0.9,0.0,0);
+                if (getRuntime()>=lastTime+1.0) {
+                    state = State.TURNAROUND;
+                    lastTime=getRuntime();
+                }
+                break;
             case TURNAROUND:
+                //Go to this state before END every time no matter how many rings
                 //DONT CHANGE THESE PERFECT NUMBERS
                 robot.mecanumDrive(0.0,0,1.0); //180 TURN
                 if (getRuntime() >= lastTime+2.4){
-                    state = State.BACKTOFOUR;
-                    lastTime=getRuntime();
-                break;
-                }
-            case BACKTOFOUR:
-                robot.mecanumDrive(0.8,0.0,0);
-                if (getRuntime()>=lastTime+1.0) {
                     state = State.END;
                     lastTime=getRuntime();
-                }
-                break;/*
+                    break;
+                }/*
             case STRAFETOONE:
-                //
-                robot.mecanumDrive(0.0,0.45,0.0); //180 TURN
+                //Go to this state when "Single"" is true after BACKTOONE before TURNAROUND
+                robot.mecanumDrive(0.0,-0.45,0.0); //180 TURN
                 if (getRuntime()>=lastTime+1.1){
-                    state = State.BACKTOONE;
+                    state = State.GOTOONE;
                     break;
                 }
-            case BACKTOONE:
-                //
-                robot.mecanumDrive(0.8,0,0.0); //180 TURN
+            case GOTOONE:
+                //Go to this state
+                robot.mecanumDrive(-0.8,0,0.0); //180 TURN
                 if (getRuntime()>=lastTime+0.4){
                     state = State.END;
                     lastTime=getRuntime();
