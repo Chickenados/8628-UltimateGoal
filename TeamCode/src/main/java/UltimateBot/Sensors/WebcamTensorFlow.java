@@ -149,7 +149,7 @@ public class WebcamTensorFlow extends LinearOpMode {
                         for (Recognition recognition : updatedRecognitions) {
                             telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
                             rings = recognition.getLabel();
-                            
+
 
                         }
                         telemetry.update();
@@ -165,21 +165,40 @@ public class WebcamTensorFlow extends LinearOpMode {
             telemetry.addData("after", space);
             sleep(3000);
             if (rings.equals("Quad")) {
+                //strafe to wall, move forward to square between 0 and 4, turn 180 degrees, drop wobble goal
                 lastTime = getRuntime();
                 telemetry.addData("There are 4 rings there. MOVE TO C", space);
                 telemetry.update();
 
+                //strafe to wall
                 ultimateBot.mecanumDrive(0.0, 0.45, 0.0);
                 sleep(1100);
 
                 ultimateBot.mecanumDrive(0.0, 0.0, 0.0);
                 sleep(1000);
 
+                //move forward to 0
                 ultimateBot.mecanumDrive(-1.0, 0.0, -0.1);
-                sleep(850);
+                sleep(8500);
+
+                //move forward to 4
+                ultimateBot.mecanumDrive(-0.9, 0.0, 0.0);
+                sleep(1000);
 
                 ultimateBot.mecanumDrive(0.0, 0.0, 0.0);
-                sleep(100);
+                sleep(1000);
+
+                //turn around
+                ultimateBot.mecanumDrive(0.0,0.0,1.0);
+                sleep(2400);
+
+                //move wobble goal down
+                ultimateBot.moveWobble(0.7);
+                sleep(3000);
+
+                //CHECK THIS ONE!!!!!!!!!!
+                //open servo
+                ultimateBot.grabWobbleGoal(0.6);
             }
             else if (rings.equals("Single")) {
             lastTime = getRuntime();
