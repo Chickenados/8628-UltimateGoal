@@ -137,7 +137,7 @@ public class WebcamTensorFlow extends LinearOpMode {
         String rings = "none";
         if (opModeIsActive()) {
             lastTime = getRuntime();
-            while (opModeIsActive() && rings.equals("none") || getRuntime()-lastTime>=5.0) {
+            while (opModeIsActive() && rings.equals("none") || getRuntime()-lastTime<=5.0) {
                 if (tfod != null) {
                     // getUpdatedRecognitions() will return null if no new information is available since
                     // the last time that call was made.
@@ -149,49 +149,60 @@ public class WebcamTensorFlow extends LinearOpMode {
                         for (Recognition recognition : updatedRecognitions) {
                             telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
                             rings = recognition.getLabel();
-                            telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
-                                    recognition.getLeft(), recognition.getTop());
-                            telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
-                                    recognition.getRight(), recognition.getBottom());
+                            
+
                         }
                         telemetry.update();
                         lastTime = getRuntime();
+                        break;
                     }
                 }
             }
         }
-
+        telemetry.addData("before", space);
+        sleep(3000);
         if (opModeIsActive()) {
-
+            telemetry.addData("after", space);
+            sleep(3000);
             if (rings.equals("Quad")) {
-                lastTime=getRuntime();
+                lastTime = getRuntime();
                 telemetry.addData("There are 4 rings there. MOVE TO C", space);
                 telemetry.update();
-                  /*  while (getRuntime()-lastTime>=10.0) {
-                        ultimateBot.mecanumDrive(0.0, 0.5, 0.0);
-                    }
-                    lastTime=getRuntime();
-                    while (getRuntime()-lastTime>=2.5) {
-                        ultimateBot.mecanumDrive(-0.8, 0.0, 0.0);
-                        //reset these values to go to C location
-                    }
-*/
-            } else if (rings.equals("Single")) {
-                lastTime=getRuntime();
-                telemetry.addData("There is 1 ring there. MOVE TO B", space);
-                telemetry.update();
-                while(getRuntime()-lastTime>=7.0) {
-                    ultimateBot.mecanumDrive(-1.0, -0.4, 0.0); //rotation and sideways must be negative!
-                    //reset these values to go to C location
-                }
+
+                ultimateBot.mecanumDrive(0.0, 0.45, 0.0);
+                sleep(1100);
+
+                ultimateBot.mecanumDrive(0.0, 0.0, 0.0);
+                sleep(1000);
+
+                ultimateBot.mecanumDrive(-1.0, 0.0, -0.1);
+                sleep(850);
+
+                ultimateBot.mecanumDrive(0.0, 0.0, 0.0);
+                sleep(100);
+            }
+            else if (rings.equals("Single")) {
+            lastTime = getRuntime();
+            telemetry.addData("There is 1 ring there. MOVE TO B", space);
+            telemetry.update();
+
+            ultimateBot.mecanumDrive(0.0, -0.45, 0.0);
+            sleep(1100);
+
+            ultimateBot.mecanumDrive(0.0, 0.0, 0.0);
+            sleep(1000);
+
             } else {
                 lastTime=getRuntime();
                 telemetry.addData("There are 0 rings there. MOVE TO A", space);
                 telemetry.update();
-                while(getRuntime()-lastTime>=7.0) {
-                    ultimateBot.mecanumDrive(-1.0, -0.4, 0.0); //rotation and sideways must be negative!
-                    //reset these values to go to A location
-                }
+
+                    ultimateBot.mecanumDrive(0.0, 0.45, 0.0);
+                    sleep(1100);
+
+                    ultimateBot.mecanumDrive(0.0, 0.0, 0.0);
+                    sleep(1000);
+
             }
         }
         if (tfod != null) {
