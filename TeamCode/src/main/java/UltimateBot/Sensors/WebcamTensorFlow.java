@@ -166,7 +166,6 @@ public class WebcamTensorFlow extends LinearOpMode {
             sleep(3000);
             if (rings.equals("Quad")) {
                 //strafe to wall, move forward to square between 0 and 4, turn 180 degrees, drop wobble goal
-                lastTime = getRuntime();
                 telemetry.addData("There are 4 rings there. MOVE TO C", space);
                 telemetry.update();
 
@@ -192,35 +191,88 @@ public class WebcamTensorFlow extends LinearOpMode {
                 ultimateBot.mecanumDrive(0.0,0.0,1.0);
                 sleep(2400);
 
+                ultimateBot.mecanumDrive(0.0, 0.0, 0.0);
+
                 //move wobble goal down
                 ultimateBot.moveWobble(0.7);
                 sleep(3000);
+
+                ultimateBot.moveWobble(0.0);
 
                 //CHECK THIS ONE!!!!!!!!!!
                 //open servo
                 ultimateBot.grabWobbleGoal(0.6);
             }
             else if (rings.equals("Single")) {
-            lastTime = getRuntime();
+            //strafe to wall, move forward to space between 0 and 4, turn 90 degrees, drop wobble goal
             telemetry.addData("There is 1 ring there. MOVE TO B", space);
             telemetry.update();
 
-            ultimateBot.mecanumDrive(0.0, -0.45, 0.0);
-            sleep(1100);
+                //strafe to wall
+                ultimateBot.mecanumDrive(0.0, 0.45, 0.0);
+                sleep(1100);
 
-            ultimateBot.mecanumDrive(0.0, 0.0, 0.0);
-            sleep(1000);
+                ultimateBot.mecanumDrive(0.0, 0.0, 0.0);
+                sleep(1000);
+
+                //move forward to 0
+                ultimateBot.mecanumDrive(-1.0, 0.0, -0.1);
+                sleep(8500);
+
+                //move forward to 4
+                ultimateBot.mecanumDrive(-0.9, 0.0, 0.0);
+                sleep(1000);
+
+                ultimateBot.mecanumDrive(0.0, 0.0, 0.0);
+                sleep(1000);
+
+                //turn 90 degrees (??????)
+                ultimateBot.mecanumDrive(0.0,0.0,1.0);
+                sleep(1200);
+
+                ultimateBot.mecanumDrive(0.0, 0.0, 0.0);
+
+                //move wobble goal down
+                ultimateBot.moveWobble(0.7);
+                sleep(3000);
+
+                ultimateBot.moveWobble(0.0);
+
+                //CHECK THIS ONE!!!!!!!!!!
+                //open servo
+                ultimateBot.grabWobbleGoal(0.6);
 
             } else {
-                lastTime=getRuntime();
+                //strafe, move to 0, turn 180 degrees, drop wobble goal
                 telemetry.addData("There are 0 rings there. MOVE TO A", space);
                 telemetry.update();
 
-                    ultimateBot.mecanumDrive(0.0, 0.45, 0.0);
-                    sleep(1100);
+                //strafe to wall
+                ultimateBot.mecanumDrive(0.0, 0.45, 0.0);
+                sleep(1100);
 
-                    ultimateBot.mecanumDrive(0.0, 0.0, 0.0);
-                    sleep(1000);
+                ultimateBot.mecanumDrive(0.0, 0.0, 0.0);
+                sleep(1000);
+
+                //move forward to 0
+                ultimateBot.mecanumDrive(-1.0, 0.0, -0.1);
+                sleep(8500);
+
+                ultimateBot.mecanumDrive(0.0, 0.0, 0.0);
+
+                //turn 180 degrees
+                ultimateBot.mecanumDrive(0.0,0.0,1.0);
+                sleep(2400);
+
+                //move wobble goal down
+                ultimateBot.moveWobble(0.7);
+                sleep(3000);
+
+                ultimateBot.moveWobble(0.0);
+
+                //CHECK THIS ONE!!!!!!!!!!
+                //open servo
+                ultimateBot.grabWobbleGoal(0.6);
 
             }
         }
